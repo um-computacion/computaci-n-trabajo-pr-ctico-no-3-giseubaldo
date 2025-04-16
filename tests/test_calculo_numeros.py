@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-# Agregamos los tests para el ingreso de texto no numericos 
+
 from src.exceptions import NumeroDebeSerPositivo
 from src.calculo_numeros import ingrese_numero
 

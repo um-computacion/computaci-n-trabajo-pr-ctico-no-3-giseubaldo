@@ -1,4 +1,4 @@
-import unittest
+import unittest 
 from src.exceptions import NumeroDebeSerPositivo
 
 def ingrese_numero():
@@ -24,19 +24,27 @@ def ingrese_numero():
 
     return numero
 
-if __name__ == "__main__":
-    # Código para ejecutar el programa interactivamente
+def main():
+    """
+    Función principal que maneja el bucle de interacción con el usuario
+    y gestiona todas las excepciones posibles.
+    """
+    print("Programa de validación de números")
+    print("Presione Ctrl+C para salir\n")
+    
     while True:
         try:
             numero = ingrese_numero()
-            print(f"Número válido: {numero}")
+            print(f"Número válido: {numero}\n")
         except NumeroDebeSerPositivo as e:
-            print(f"Error: {e}")
+            print(f"Error: {e}\n")
         except ValueError as e:
-            print(f"Error: {e}")
+            print(f"Error: {e}\n")
         except KeyboardInterrupt:
             print("\nPrograma finalizado.")
             break
+        except Exception as e:
+            print(f"Error inesperado: {e}\n")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,8 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-# Estos imports fallarán inicialmente porque estamos siguiendo TDD
-# y aún no hemos creado los archivos de implementación
+# Agregamos los tests para ingresar numeros negativos 
 from src.exceptions import NumeroDebeSerPositivo
 from src.calculo_numeros import ingrese_numero
 
@@ -36,6 +35,32 @@ class TestCalculoNumeros(unittest.TestCase):
         """Prueba el caso con espacios en blanco"""
         numero = ingrese_numero()
         self.assertEqual(numero, 50)
+
+ 
+    @patch('builtins.input', return_value='-100')
+    def test_ingreso_negativo_entero(self, patch_input):
+        """Prueba el caso de ingreso de un número entero negativo"""
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+    
+    @patch('builtins.input', return_value='-0.5')
+    def test_ingreso_negativo_decimal(self, patch_input):
+        """Prueba el caso de ingreso de un número decimal negativo"""
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+    
+    @patch('builtins.input', return_value='-0.0')
+    def test_ingreso_negativo_cero(self, patch_input):
+        """Prueba el caso de ingreso de cero negativo"""
+        numero = ingrese_numero()
+        self.assertEqual(numero, 0)
+        
+    @patch('builtins.input', return_value='  -42  ')
+    def test_ingreso_negativo_con_espacios(self, patch_input):
+        """Prueba el caso de ingreso de número negativo con espacios"""
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+
 
 if __name__ == '__main__':
     unittest.main()
